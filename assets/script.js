@@ -1,5 +1,6 @@
+let quizContainer = document.querySelector("#quiz");
 let timeEl = document.querySelector(".timer");
-let secondsLeft = 100;
+let secondsLeft = 20;
 let startButton = document.querySelector("#start");
 let quizQuestions = [
   {
@@ -91,19 +92,58 @@ let quizQuestions = [
       c: "c",
     },
     correctAnswer: "c",
-  }
+  },
 ];
 
 startButton.addEventListener("click", startTimer);
-startButton.addEventListener("click", startQuiz);
+startButton.addEventListener("click", function () {
+  displayQuestion(quizQuestions, quizContainer);
+});
 
-function startQuiz() {}
+function displayQuestion(quizQuestions, quizContainer) {
+  let output = [];
+  let answers;
+  let i = 0;
+
+  while (i < quizQuestions.length) {
+    answers = [];
+    for (letter in quizQuestions[i].answers) {
+      answers.push(
+        "<label>" +
+          '<input type="radio" name="question' +
+          i +
+          '" value="' +
+          letter +
+          '">' +
+          letter +
+          ": " +
+          quizQuestions[i].answers[letter] +
+          "</label>"
+      );
+    }
+
+    output.push(
+      '<div class="question">' +
+        quizQuestions[i].question +
+        "</div>" +
+        '<div class="answers">' +
+        answers.join("") +
+        "</div>"
+    );
+
+    quizContainer.innerHTML = output.join("");
+
+    i++;
+    // displayQuestion(quizQuestions, quizContainer);
+  }
+}
 
 function startTimer() {
   var timerInterval = setInterval(function () {
-    secondsLeft--;
     timeEl.textContent = "Time remaining: " + secondsLeft;
-    if (secondsLeft === 0) {
+    secondsLeft--;
+
+    if (secondsLeft == -1) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
 
@@ -112,4 +152,6 @@ function startTimer() {
   }, 1000);
 }
 
-function quizOver() {}
+function quizOver() {
+  alert("QUIZ OVER!");
+}
