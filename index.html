@@ -9,7 +9,6 @@
   </head>
 
   <body>
-
     <h1 class="timer"></h1>
 
     <section class="home">
@@ -18,9 +17,59 @@
       <button id="start">Start Quiz!</button>
     </section>
 
-    <div id="quiz"></div>
+    <div id="quiz">
+      <ul id="questions">
+        <li id="quest1" class="inactive">
+          <h2>Question 1:</h2>
+          <ul class="answers">
+            <li><input type="checkbox" onclick="isCorrect()"/>A:</li>
+            <li><input type="checkbox" onClick="isIncorrect()"/>B:</li>
+            <li><input type="checkbox" onClick="isIncorrect()"/>C:</li>
+          </ul>
+        </li>
+        <li id="quest2" class="inactive">
+          <h2>Question 2:</h2>
+          <ul class="answers">
+            <li><input type="checkbox" onClick="isIncorrect()"/>A:</li>
+            <li><input type="checkbox" onclick="isCorrect()" />B:</li>
+            <li><input type="checkbox" onClick="isIncorrect()"/>C:</li>
+          </ul>
+        </li>
+        <li id="quest3" class="inactive">
+          <h2>Question 3:</h2>
+          <ul class="answers">
+            <li><input type="checkbox" onClick="isIncorrect()"/>A:</li>
+            <li><input type="checkbox" onClick="isIncorrect()"/>B:</li>
+            <li><input type="checkbox" onclick="isCorrect()"/>C:</li>
+          </ul>
+        </li>
+        <li id="quest4" class="inactive">
+          <h2>Question 4:</h2>
+          <ul class="answers">
+            <li><input type="checkbox" onClick="isIncorrect()"/>A:</li>
+            <li><input type="checkbox" onClick="isIncorrect()"/>B:</li>
+            <li><input type="checkbox" onclick="isCorrect()"/>C:</li>
+          </ul>
+        </li>
+        <li id="quest5" class="inactive">
+          <h2>Question 5:</h2>
+          <ul class="answers">
+            <li><input type="checkbox" onclick="isCorrect(); score += secondsLeft"/>A:</li>
+            <li><input type="checkbox" onClick="isIncorrect(); score += secondsLeft"/>B:</li>
+            <li><input type="checkbox" onClick="isIncorrect(); score += secondsLeft"/>C:</li>
+          </ul>
+        </li>
+        <li id="quizovercard" class="inactive">
+          <h2 id="quizover">QUIZ OVER</h2>
+          <button id="submit" onclick="endQuiz();">Submit Score</button>
 
-    
+        </li>
+      </ul>
+      <div id="scoreBoard" >
+        <h1 id="highscoretitle" class="inactive">HIGH SCORES</h1>
+      </div>
+    </div>
+
     <script src="./assets/script.js"></script>
   </body>
 </html>
