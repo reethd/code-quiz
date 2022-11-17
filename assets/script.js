@@ -1,10 +1,11 @@
 // declared global variables
-let timeEl = document.querySelector(".timer");
-let secondsLeft = 30;
+let timeEl = document.getElementById("timer");
+
 let startButton = document.querySelector("#start");
 let highScoreBtn = document.querySelector("#highScoreButton");
 let clearScoresBtn = document.getElementById("clear");
 let restartBtn = document.getElementById("start-over");
+let secondsLeft;
 let score = 0;
 let playerInitials;
 let scoreBoard = document.getElementById("scoreBoard");
@@ -23,6 +24,8 @@ restartBtn.addEventListener("click", startOver);
 
 // starts and displays the count down timer
 function startTimer() {
+  document.getElementById("timer").className = "active";
+  secondsLeft = 30;
   timerInterval = setInterval(function () {
     timeEl.textContent = "Time remaining: " + secondsLeft;
     secondsLeft--;
@@ -83,7 +86,7 @@ function nextQuestion() {
 function endQuiz() {
   playerInitials = prompt("QUIZ OVER! Enter initials");
   document.getElementById("quizovercard").className = "complete";
-  document.querySelector(".timer").className = "complete";
+  document.getElementById("timer").className = "complete";
   logHighScore();
 }
 
@@ -93,7 +96,8 @@ function goToHighScores() {
   if (highScores == null) {
     highScores = [];
   }
-  for (i = 0; i < highScores.length; i++) {
+ 
+  for (let i=0; i < highScores.length; i++) {
     let scoreItem = highScores[i];
     scoreContainer.innerHTML +=
       "Initials: " +
@@ -138,8 +142,8 @@ function clearScores() {
 
 //resets answer checkboxes
 function unSelectAll() {
-  var items = document.getElementsByName("answer");
-  for (var i = 0; i < items.length; i++) {
+  let items = document.getElementsByName("answer");
+  for (let i = 0; i < items.length; i++) {
     if (items[i].type == "checkbox") items[i].checked = false;
   }
 }
@@ -154,5 +158,6 @@ function startOver() {
   document.getElementById("questions").className = "active";
   document.getElementById("highscoretitle").className = "inactive";
   document.querySelector("#home").className = "active";
+
   unSelectAll();
 }
