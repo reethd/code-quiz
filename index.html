@@ -9,64 +9,134 @@
   </head>
 
   <body>
+    <!-- creates a container for the countdown timer -->
     <h1 class="timer"></h1>
 
-    <section class="home">
+    <!-- home page -->
+    <section class="active" id="home">
       <h2>Javascript Quiz</h2>
 
       <button id="start">Start Quiz!</button>
+      <button id="highScoreButton">High Scores</button>
     </section>
 
+    <!-- quiz container -->
     <div id="quiz">
+      <!-- list of quiz questions, each question is either visible or invisible -->
       <ul id="questions">
         <li id="quest1" class="inactive">
-          <h2>Question 1:</h2>
+          <h2>Question 1: What is Javascript?</h2>
           <ul class="answers">
-            <li><input type="checkbox" onclick="isCorrect()"/>A:</li>
-            <li><input type="checkbox" onClick="isIncorrect()"/>B:</li>
-            <li><input type="checkbox" onClick="isIncorrect()"/>C:</li>
+            <li>
+              <input type="checkbox" name="answer" onclick="isCorrect()" />A: A
+              programming language
+            </li>
+            <li>
+              <input type="checkbox" name="answer" onClick="isIncorrect()" />B:
+              A play written in a cafe
+            </li>
+            <li>
+              <input type="checkbox" name="answer" onClick="isIncorrect()" />C:
+              A prescription for caffeine
+            </li>
           </ul>
         </li>
         <li id="quest2" class="inactive">
-          <h2>Question 2:</h2>
+          <h2>
+            Question 2: Which of these is NOT a way to declare a variable?
+          </h2>
           <ul class="answers">
-            <li><input type="checkbox" onClick="isIncorrect()"/>A:</li>
-            <li><input type="checkbox" onclick="isCorrect()" />B:</li>
-            <li><input type="checkbox" onClick="isIncorrect()"/>C:</li>
+            <li>
+              <input type="checkbox" name="answer" onClick="isIncorrect()" />A:
+              Let
+            </li>
+            <li>
+              <input type="checkbox" name="answer" onclick="isCorrect()" />B:
+              Run
+            </li>
+            <li>
+              <input type="checkbox" name="answer" onClick="isIncorrect()" />C:
+              Const
+            </li>
           </ul>
         </li>
         <li id="quest3" class="inactive">
-          <h2>Question 3:</h2>
+          <h2>Question 3: A function is ____.</h2>
           <ul class="answers">
-            <li><input type="checkbox" onClick="isIncorrect()"/>A:</li>
-            <li><input type="checkbox" onClick="isIncorrect()"/>B:</li>
-            <li><input type="checkbox" onclick="isCorrect()"/>C:</li>
+            <li>
+              <input type="checkbox" name="answer" onClick="isIncorrect()" />A:
+              A meeting of the minds
+            </li>
+            <li>
+              <input type="checkbox" name="answer" onClick="isIncorrect()" />B:
+              A single's mixer
+            </li>
+            <li>
+              <input type="checkbox" name="answer" onclick="isCorrect()" />C: A
+              simple program
+            </li>
           </ul>
         </li>
         <li id="quest4" class="inactive">
-          <h2>Question 4:</h2>
+          <h2>Question 4: Which of these is a primitive type?</h2>
           <ul class="answers">
-            <li><input type="checkbox" onClick="isIncorrect()"/>A:</li>
-            <li><input type="checkbox" onClick="isIncorrect()"/>B:</li>
-            <li><input type="checkbox" onclick="isCorrect()"/>C:</li>
+            <li>
+              <input type="checkbox" name="answer" onClick="isIncorrect()" />A:
+              Caveman
+            </li>
+            <li>
+              <input type="checkbox" name="answer" onClick="isIncorrect()" />B:
+              Code
+            </li>
+            <li>
+              <input type="checkbox" name="answer" onclick="isCorrect()" />C:
+              String
+            </li>
           </ul>
         </li>
+
+        <!--interacting with the last question saves the remaining time as a score and stops the timer  -->
         <li id="quest5" class="inactive">
-          <h2>Question 5:</h2>
+          <h2>Question 5: What is the syntax for containing an array?</h2>
           <ul class="answers">
-            <li><input type="checkbox" onclick="isCorrect(); score += secondsLeft"/>A:</li>
-            <li><input type="checkbox" onClick="isIncorrect(); score += secondsLeft"/>B:</li>
-            <li><input type="checkbox" onClick="isIncorrect(); score += secondsLeft"/>C:</li>
+            <li>
+              <input
+                type="checkbox"
+                name="answer"
+                onclick="isCorrect(); clearInterval(timerInterval); score += secondsLeft;"
+              />A: []
+            </li>
+            <li>
+              <input
+                type="checkbox"
+                name="answer"
+                onClick="isIncorrect(); clearInterval(timerInterval); score += secondsLeft;"
+              />B: {}
+            </li>
+            <li>
+              <input
+                type="checkbox"
+                name="answer"
+                onClick="isIncorrect(); clearInterval(timerInterval); score += secondsLeft;"
+              />C: ()
+            </li>
           </ul>
         </li>
+
+        <!-- the last list item is the quiz over card with a submit button that logs the high score and takes the user to the high score page -->
         <li id="quizovercard" class="inactive">
           <h2 id="quizover">QUIZ OVER</h2>
           <button id="submit" onclick="endQuiz();">Submit Score</button>
-
         </li>
       </ul>
-      <div id="scoreBoard" >
-        <h1 id="highscoretitle" class="inactive">HIGH SCORES</h1>
+
+      <!-- high score board -->
+      <div id="highscoretitle" class="inactive">
+        <h1>HIGH SCORES</h1>
+
+        <p id="scoreBoard"></p>
+        <button id="clear">Clear High Scores</button>
+        <button id="start-over">Start Over</button>
       </div>
     </div>
 

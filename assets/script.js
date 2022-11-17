@@ -1,151 +1,33 @@
-// let quizContainer = document.querySelector("#quiz");
+// declared global variables
 let timeEl = document.querySelector(".timer");
 let secondsLeft = 30;
 let startButton = document.querySelector("#start");
+let highScoreBtn = document.querySelector("#highScoreButton");
+let clearScoresBtn = document.getElementById("clear");
+let restartBtn = document.getElementById("start-over");
 let score = 0;
-let highScores = [];
 let playerInitials;
-// let quizQuestions = [
-//   {
-//     question: "Question 1",
-//     answers: {
-//       a: "a",
-//       b: "b",
-//       c: "c",
-//     },
-//     correctAnswer: "a",
-//   },
-//   {
-//     question: "Question 2",
-//     answers: {
-//       a: "a",
-//       b: "b",
-//       c: "c",
-//     },
-//     correctAnswer: "b",
-//   },
-//   {
-//     question: "Question 3",
-//     answers: {
-//       a: "a",
-//       b: "b",
-//       c: "c",
-//     },
-//     correctAnswer: "c",
-//   },
-//   {
-//     question: "Question 4",
-//     answers: {
-//       a: "a",
-//       b: "b",
-//       c: "c",
-//     },
-//     correctAnswer: "c",
-//   },
-//   {
-//     question: "Question 5",
-//     answers: {
-//       a: "a",
-//       b: "b",
-//       c: "c",
-//     },
-//     correctAnswer: "a",
-//   },
-//   {
-//     question: "Question 6",
-//     answers: {
-//       a: "a",
-//       b: "b",
-//       c: "c",
-//     },
-//     correctAnswer: "b",
-//   },
-//   {
-//     question: "Question 7",
-//     answers: {
-//       a: "a",
-//       b: "b",
-//       c: "c",
-//     },
-//     correctAnswer: "a",
-//   },
-//   {
-//     question: "Question 8",
-//     answers: {
-//       a: "a",
-//       b: "b",
-//       c: "c",
-//     },
-//     correctAnswer: "c",
-//   },
-//   {
-//     question: "Question 9",
-//     answers: {
-//       a: "a",
-//       b: "b",
-//       c: "c",
-//     },
-//     correctAnswer: "b",
-//   },
-//   {
-//     question: "Question 10",
-//     answers: {
-//       a: "a",
-//       b: "b",
-//       c: "c",
-//     },
-//     correctAnswer: "c",
-//   },
-// ];
+let scoreBoard = document.getElementById("scoreBoard");
+let scoreContainer = document.createElement("div");
+let quizQuestions = document
+  .getElementById("questions")
+  .getElementsByTagName("li");
+let submitButton = document.createElement("button");
+let timerInterval;
 
+// created event listeners for the button clicks
 startButton.addEventListener("click", startQuiz);
-// startButton.addEventListener("click", function () {
-//   displayQuestion(quizQuestions, quizContainer);
-// });
+highScoreBtn.addEventListener("click", goToHighScores);
+clearScoresBtn.addEventListener("click", clearScores);
+restartBtn.addEventListener("click", startOver);
 
-// function displayQuestion(quizQuestions, quizContainer) {
-//   let output = [];
-//   let answers;
-//   let i = 0;
-
-//   while (i < quizQuestions.length) {
-//     answers = [];
-//     for (letter in quizQuestions[i].answers) {
-//       answers.push(
-//         "<label>" +
-//           '<input type="radio" name="question' +
-//           i +
-//           '" value="' +
-//           letter +
-//           '">' +
-//           letter +
-//           ": " +
-//           quizQuestions[i].answers[letter] +
-//           "</label>"
-//       );
-//     }
-
-//     output.push(
-//       '<div class="question">' +
-//         quizQuestions[i].question +
-//         "</div>" +
-//         '<div class="answers">' +
-//         answers.join("") +
-//         "</div>"
-//     );
-
-//     quizContainer.innerHTML = output.join("");
-
-//     i++;
-//   }
-// }
-
+// starts and displays the count down timer
 function startTimer() {
-  var timerInterval = setInterval(function () {
+  timerInterval = setInterval(function () {
     timeEl.textContent = "Time remaining: " + secondsLeft;
     secondsLeft--;
 
-    if (secondsLeft == -1) {
+    if (secondsLeft < 0) {
       clearInterval(timerInterval);
 
       endQuiz();
@@ -153,24 +35,15 @@ function startTimer() {
   }, 1000);
 }
 
-// function quizOver() {
-//   alert("QUIZ OVER!");
-// }
-
+// runs startTimer and renders the first question in place of the home page
 function startQuiz() {
   startTimer();
-  document.querySelector(".home").className = "complete";
+  document.querySelector("#home").className = "complete";
   document.getElementById("quest1").className = "active";
 }
 
-let quizQuestions = document
-  .getElementById("questions")
-  .getElementsByTagName("li");
-// let questionStatus = document.querySelector("#questions.li").className;
-let submitButton = document.createElement("button");
-submitButton.innerHTML = "Submit Score";
-
-function hideCurrentQuestion() {
+//these 2 functions change which container is visible
+function revealNextQuestion() {
   for (let i = 0; i < quizQuestions.length; i++) {
     if (quizQuestions[i].className == "inactive") {
       quizQuestions[i].className = "active";
@@ -179,7 +52,7 @@ function hideCurrentQuestion() {
   }
 }
 
-function revealNextQuestion() {
+function hideCurrentQuestion() {
   for (let i = 0; i < quizQuestions.length; i++) {
     if (quizQuestions[i].className == "active") {
       quizQuestions[i].className = "complete";
@@ -188,6 +61,7 @@ function revealNextQuestion() {
   }
 }
 
+//these 2 functions alert the user to their answer validity, move to the next question, and remove time from the timer if neccessary
 function isCorrect() {
   alert("Correct!");
   nextQuestion();
@@ -199,20 +73,86 @@ function isIncorrect() {
   nextQuestion();
 }
 
+//changes visibility from current question to next question
 function nextQuestion() {
   hideCurrentQuestion();
   revealNextQuestion();
 }
 
+//prompts user for their initials and logs highscore
 function endQuiz() {
   playerInitials = prompt("QUIZ OVER! Enter initials");
   document.getElementById("quizovercard").className = "complete";
   document.querySelector(".timer").className = "complete";
-  displayHighScore();
+  logHighScore();
 }
 
-function displayHighScore() {
-  highScores.push(score, playerInitials);
+//calls and prints array of high scores from local storage
+function goToHighScores() {
+  var highScores = JSON.parse(localStorage.getItem("highScores"));
+  if (highScores == null) {
+    highScores = [];
+  }
+  for (i = 0; i < highScores.length; i++) {
+    let scoreItem = highScores[i];
+    scoreContainer.innerHTML +=
+      "Initials: " +
+      scoreItem.initials +
+      " Score: " +
+      scoreItem.quizscore +
+      "<hr>";
+    scoreContainer.className = "scorecontainer";
+    scoreBoard.appendChild(scoreContainer);
+  }
+
+  if (document.querySelector("#home")) {
+    document.querySelector("#home").className = "complete";
+  }
+  document.getElementById("questions").className = "complete";
   document.getElementById("highscoretitle").className = "active";
-  document.getElementById("scoreBoard").innerHTML += highScores;
+}
+
+//logs highscores to local storage as objects with the attributes: initials and quizscore
+function logHighScore() {
+  var highScores = JSON.parse(localStorage.getItem("highScores"));
+  if (highScores == null) {
+    highScores = [];
+  }
+
+  let scoreItem = {
+    initials: playerInitials,
+    quizscore: score,
+  };
+
+  highScores.push(scoreItem);
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+
+  goToHighScores();
+}
+
+//clears local storage and resets score board
+function clearScores() {
+  scoreContainer.innerText = "";
+  localStorage.clear();
+}
+
+//resets answer checkboxes
+function unSelectAll() {
+  var items = document.getElementsByName("answer");
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].type == "checkbox") items[i].checked = false;
+  }
+}
+
+//allows the user to return to the beginning of the quiz and reset the answers
+function startOver() {
+  for (let i = 0; i < quizQuestions.length; i++) {
+    if (quizQuestions[i].className == "complete") {
+      quizQuestions[i].className = "inactive";
+    }
+  }
+  document.getElementById("questions").className = "active";
+  document.getElementById("highscoretitle").className = "inactive";
+  document.querySelector("#home").className = "active";
+  unSelectAll();
 }
