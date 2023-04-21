@@ -5,7 +5,7 @@ This multiple choice javascript quiz features a countdown timer that is reduced 
 ![127 0 0 1_5501_index html](https://user-images.githubusercontent.com/115037176/202525478-8611f111-6bfd-4851-a89a-25c3a037f0bb.png)
 
 
-link to deployed website:  https://reethd.github.io/module-4-challenge-code-quiz/
+link to deployed website:  https://reethd.github.io/code-quiz/
 
 # Code-Quiz
   [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
